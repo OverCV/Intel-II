@@ -1,0 +1,18 @@
+Muestreo Bootstrapping: Los datos se pueden repetir, no necesariamente que todos los elementos de la lista inicial deben estar allí, sino que se pueden repetir.
+Muestreo Aleatorio Simple: Sacar una muestra de un tamaño x, se asegura que la probabilidad o ponderación de cada objeto para escogerse en la misma.
+Muestre estratificado: Se asigna valores de prioridad, y se muestra por prioridad.
+
+
+Muestreo Bootstrapping:
+
+Se decide bajo una caracteristica con diferentes arboles.
+
+Sobreajuste: Cuando un modelo a un modelo donde le stoy dando los datos, aprende demasiado bien pero con datos nuevos no generaliza bien.
+Se soluciona:
+1. Mas datos para el entrenamiento
+2. Validación cruzada, validar el modelo con diferentes particiones de los datos de entrenamiento.
+
+Subajuste: La distancia entre un curva y la otra debe ser menor,en caso contrarcio es un subajuste.
+Se soluciona:
+1. Considerar más caracteristicas
+2. Aumentar la duración del entrenamiento.
