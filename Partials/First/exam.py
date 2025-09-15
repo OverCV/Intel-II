@@ -95,25 +95,6 @@ CONFIG = {
         IrisNames.VERSICOLOR,
         IrisNames.VIRGINICA,
     ],
-    Keys.CV_FOLDS: 10,  # Número de folds para validación cruzada
-    Keys.BOOTSTRAP_ITERATIONS: 1000,  # Iteraciones para bootstrapping (robusto para análisis)
-    Keys.KNN_K_RANGE: list(range(1, 31)),
-    Keys.RANDOM_STATE: 42,  # Para reproducibilidad
-    Keys.TEST_SIZE: 0.3,  # Proporción para conjunto de prueba
-    Keys.CONFIDENCE_LEVEL: 0.95,  # Nivel de confianza para intervalos
-    Keys.HISTOGRAM_BINS: 15,  # Número de bins para histogramas
-    Keys.FIGURE_SIZE_LARGE: (15, 10),  # Tamaño de figuras grandes
-    Keys.FIGURE_SIZE_MEDIUM: (12, 8),  # Tamaño de figuras medianas
-    # Configuración específica por ejercicio
-    Keys.EXERCISE1_CLASSES: [
-        IrisNames.SETOSA,
-        IrisNames.VERSICOLOR,
-    ],  # Solo setosa y versicolor
-    Keys.EXERCISE2_CLASSES: [
-        IrisNames.SETOSA,
-        IrisNames.VERSICOLOR,
-        IrisNames.VIRGINICA,
-    ],  # Todas las clases
     # Parámetros de evaluación
     Keys.CV_FOLDS: 10,  # Número de folds para validación cruzada
     Keys.BOOTSTRAP_ITERATIONS: 1000,  # Iteraciones para bootstrapping (robusto para análisis)
@@ -179,6 +160,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 # Métricas y utilidades de sklearn (solo para métricas, no para evaluación)
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.decomposition import PCA
 
 # Configuración de visualización
 plt.style.use("seaborn-v0_8")
@@ -763,36 +745,6 @@ def create_comparison_visualization(results1, results2, name1, name2, config):
     plt.show()
 
     return has_variability
-
-
-def analyze_perfect_performance(results1, results2, name1, name2):
-    """
-    Análisis especializado para el caso de rendimiento perfecto.
-    """
-    print("🎯 **ANÁLISIS DE RENDIMIENTO PERFECTO**")
-    print("=" * 60)
-
-    print("📊 **Interpretación de los Resultados:**")
-    print(f"✅ Ambos clasificadores ({name1} y {name2}) obtuvieron:")
-    print("   - Accuracy = 1.0000 (100% de clasificaciones correctas)")
-    print("   - Precision = 1.0000 (sin falsos positivos)")
-    print("   - Recall = 1.0000 (sin falsos negativos)")
-    print("   - F1-Score = 1.0000 (balance perfecto)")
-
-    print(f"\n🔍 **¿Por qué ambos clasificadores son perfectos?**")
-    print("   - Las clases setosa y versicolor son linealmente separables")
-    print("   - Las características del dataset Iris discriminan muy bien estas clases")
-    print("   - Ambos algoritmos son adecuados para este problema simple")
-
-    print(f"\n📈 **Test Estadístico:**")
-    print("   - No se puede realizar test t (varianza = 0)")
-    print("   - Diferencia entre clasificadores: 0.0000")
-    print("   - Conclusión: Rendimiento idéntico y perfecto")
-
-    print(f"\n💡 **Implicaciones Prácticas:**")
-    print("   - Para este subconjunto de datos, cualquier clasificador es válido")
-    print("   - La diferencia se vería en datasets más complejos o ruidosos")
-    print("   - Ambos algoritmos demuestran robustez en problemas simples")
 
 
 print("✓ Funciones de visualización mejoradas implementadas")
