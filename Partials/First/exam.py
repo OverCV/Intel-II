@@ -29,61 +29,130 @@ El código está diseñado para ser **modular y verificable**, siguiendo las mej
 Esta sección centraliza todos los parámetros configurables para facilitar modificaciones durante la sustentación. El diseño modular permite cambiar rápidamente el dataset, características, clases objetivo, y parámetros de evaluación.
 """
 
-# Configuración centralizada del experimento
+
+class IrisNames:
+    SETOSA = "Iris-setosa"
+    VERSICOLOR = "Iris-versicolor"
+    VIRGINICA = "Iris-virginica"
+
+
+class IrisFeatures:
+    SEPAL_LENGTH = "SepalLengthCm"
+    SEPAL_WIDTH = "SepalWidthCm"
+    PETAL_LENGTH = "PetalLengthCm"
+    PETAL_WIDTH = "PetalWidthCm"
+
+
+class IrisTarget:
+    SPECIES = "Species"
+
+
+class Keys:
+    DATASET_PATH = "dataset_path"
+    FEATURE_COLUMNS = "feature_columns"
+    TARGET_COLUMN = "target_column"
+    EXERCISE1_CLASSES = "exercise1_classes"
+    EXERCISE2_CLASSES = "exercise2_classes"
+    CV_FOLDS = "cv_folds"
+    BOOTSTRAP_ITERATIONS = "bootstrap_iterations"
+    KNN_K_RANGE = "knn_k_range"
+    RANDOM_STATE = "random_state"
+    TEST_SIZE = "test_size"
+    CONFIDENCE_LEVEL = "confidence_level"
+    HISTOGRAM_BINS = "histogram_bins"
+    FIGURE_SIZE_LARGE = "figure_size_large"
+    FIGURE_SIZE_MEDIUM = "figure_size_medium"
+    ALPHA_TRANSPARENCY = "alpha_transparency"
+    GRID_ALPHA = "grid_alpha"
+    CLASS_COLORS = "class_colors"
+    COMPARISON_COLORS = "comparison_colors"
+    VARIABILITY_THRESHOLD = "variability_threshold"
+    PROGRESS_MILESTONES = "progress_milestones"
+    SIGNIFICANCE_ALPHA = "significance_alpha"
+    PCA_COMPONENTS = "pca_components"
+    DATASET_ENCODING = "dataset_encoding"
+    DECIMAL_PRECISION = "decimal_precision"
+
+
+# Configuración centralizada
 CONFIG = {
     # Dataset y características
-    "dataset_path": "dataset-iris.csv",
-    "feature_columns": [
-        "SepalLengthCm",
-        "SepalWidthCm",
-        "PetalLengthCm",
-        "PetalWidthCm",
+    Keys.DATASET_PATH: "dataset-iris.csv",
+    Keys.FEATURE_COLUMNS: [
+        IrisFeatures.SEPAL_LENGTH,
+        IrisFeatures.SEPAL_WIDTH,
+        IrisFeatures.PETAL_LENGTH,
+        IrisFeatures.PETAL_WIDTH,
     ],
-    "target_column": "Species",
+    Keys.TARGET_COLUMN: IrisTarget.SPECIES,
     # Configuración específica por ejercicio
-    "exercise1_classes": ["Iris-setosa", "Iris-versicolor"],  # Solo setosa y versicolor
-    "exercise2_classes": [
-        "Iris-setosa",
-        "Iris-versicolor",
-        "Iris-virginica",
+    Keys.EXERCISE1_CLASSES: [
+        IrisNames.SETOSA,
+        IrisNames.VERSICOLOR,
+    ],
+    Keys.EXERCISE2_CLASSES: [
+        IrisNames.SETOSA,
+        IrisNames.VERSICOLOR,
+        IrisNames.VIRGINICA,
+    ],
+    Keys.CV_FOLDS: 10,  # Número de folds para validación cruzada
+    Keys.BOOTSTRAP_ITERATIONS: 1000,  # Iteraciones para bootstrapping (robusto para análisis)
+    Keys.KNN_K_RANGE: list(range(1, 31)),
+    Keys.RANDOM_STATE: 42,  # Para reproducibilidad
+    Keys.TEST_SIZE: 0.3,  # Proporción para conjunto de prueba
+    Keys.CONFIDENCE_LEVEL: 0.95,  # Nivel de confianza para intervalos
+    Keys.HISTOGRAM_BINS: 15,  # Número de bins para histogramas
+    Keys.FIGURE_SIZE_LARGE: (15, 10),  # Tamaño de figuras grandes
+    Keys.FIGURE_SIZE_MEDIUM: (12, 8),  # Tamaño de figuras medianas
+    # Configuración específica por ejercicio
+    Keys.EXERCISE1_CLASSES: [
+        IrisNames.SETOSA,
+        IrisNames.VERSICOLOR,
+    ],  # Solo setosa y versicolor
+    Keys.EXERCISE2_CLASSES: [
+        IrisNames.SETOSA,
+        IrisNames.VERSICOLOR,
+        IrisNames.VIRGINICA,
     ],  # Todas las clases
     # Parámetros de evaluación
-    "cv_folds": 10,  # Número de folds para validación cruzada
-    "bootstrap_iterations": 1000,  # Iteraciones para bootstrapping (robusto para análisis)
-    "knn_k_range": list(
-        range(1, 31)
-    ),  # Rango de k para K-NN (1 a 30) para análisis más comprehensivo
+    Keys.CV_FOLDS: 10,  # Número de folds para validación cruzada
+    Keys.BOOTSTRAP_ITERATIONS: 1000,  # Iteraciones para bootstrapping (robusto para análisis)
+    Keys.KNN_K_RANGE: list(range(1, 31)),  # Rango de análisis
+    #
     # Configuración general
-    "random_state": 42,  # Para reproducibilidad
-    "test_size": 0.3,  # Proporción para conjunto de prueba
-    "confidence_level": 0.95,  # Nivel de confianza para intervalos
-    # Parámetros de visualización
-    "histogram_bins": 15,  # Número de bins para histogramas
-    "figure_size_large": (15, 10),  # Tamaño de figuras grandes
-    "figure_size_medium": (12, 8),  # Tamaño de figuras medianas
-    "alpha_transparency": 0.7,  # Transparencia para gráficos
-    "grid_alpha": 0.3,  # Transparencia para grillas
-    # Colores para clases (configurable)
-    "class_colors": ["skyblue", "lightcoral", "lightgreen"],
-    "comparison_colors": ["lightblue", "lightgreen", "lightcoral"],
+    #
+    Keys.RANDOM_STATE: 42,  # Para reproducibilidad
+    Keys.TEST_SIZE: 0.3,  # Proporción para conjunto de prueba
+    Keys.CONFIDENCE_LEVEL: 0.95,  # Nivel de confianza para intervalos
     # Umbrales y parámetros adicionales
-    "variability_threshold": 0.001,  # Umbral para detectar variabilidad
-    "progress_milestones": 10,  # Cada cuánto mostrar progreso (%)
-    "significance_alpha": 0.05,  # Nivel de significancia estadística
-    "pca_components": 2,  # Componentes PCA para visualización
+    Keys.VARIABILITY_THRESHOLD: 0.001,  # Umbral para detectar variabilidad
+    Keys.PROGRESS_MILESTONES: 10,  # Cada cuánto mostrar progreso (%)
+    Keys.SIGNIFICANCE_ALPHA: 0.05,  # Nivel de significancia estadística
+    Keys.PCA_COMPONENTS: 2,  # Componentes PCA para visualización
+    # Parámetros de visualización
+    Keys.HISTOGRAM_BINS: 15,  # Número de bins para histogramas
+    Keys.FIGURE_SIZE_LARGE: (15, 10),  # Tamaño de figuras grandes
+    Keys.FIGURE_SIZE_MEDIUM: (12, 8),  # Tamaño de figuras medianas
+    Keys.ALPHA_TRANSPARENCY: 0.7,  # Transparencia para gráficos
+    Keys.GRID_ALPHA: 0.3,  # Transparencia para grillas
+    # Colores para clases
+    Keys.CLASS_COLORS: ["skyblue", "lightcoral", "lightgreen"],
+    Keys.COMPARISON_COLORS: ["lightblue", "lightgreen", "lightcoral"],
     # Textos configurables
-    "dataset_encoding": "utf-8",  # Codificación del dataset
-    "decimal_precision": 4,  # Precisión decimal para reportes
+    Keys.DATASET_ENCODING: "utf-8",  # Codificación del dataset
+    Keys.DECIMAL_PRECISION: 4,  # Precisión decimal para reportes
 }
 
 print("✓ Configuración cargada exitosamente")
-print(f"Dataset: {CONFIG['dataset_path']}")
-print(f"Características: {CONFIG['feature_columns']}")
-print(f"Clases Ejercicio 1: {CONFIG['exercise1_classes']}")
-print(f"Clases Ejercicio 2: {CONFIG['exercise2_classes']}")
-print(f"CV Folds: {CONFIG['cv_folds']}")
-print(f"Bootstrap Iteraciones: {CONFIG['bootstrap_iterations']}")
-print(f"Rango K para K-NN: {min(CONFIG['knn_k_range'])}-{max(CONFIG['knn_k_range'])}")
+print(f"Dataset: {CONFIG[Keys.DATASET_PATH]}")
+print(f"Características: {CONFIG[Keys.FEATURE_COLUMNS]}")
+print(f"Clases Ejercicio 1: {CONFIG[Keys.EXERCISE1_CLASSES]}")
+print(f"Clases Ejercicio 2: {CONFIG[Keys.EXERCISE2_CLASSES]}")
+print(f"CV Folds: {CONFIG[Keys.CV_FOLDS]}")
+print(f"Bootstrap Iteraciones: {CONFIG[Keys.BOOTSTRAP_ITERATIONS]}")
+print(
+    f"Rango K para K-NN: {min(CONFIG[Keys.KNN_K_RANGE])}-{max(CONFIG[Keys.KNN_K_RANGE])}"
+)
 
 """
 ## **2. Imports y Librerías**
@@ -130,7 +199,9 @@ Implementamos funciones modulares y agnósticas al dataset para facilitar la exp
 """
 
 
-def load_and_prepare_data(config, classes=None):
+def load_and_prepare_data(
+    config: dict[str, str | int | float | list[str] | list[int]], classes=None
+):
     """
     Carga y prepara los datos de forma agnóstica al dataset.
 
@@ -228,7 +299,12 @@ Implementamos los evaluadores (k-fold CV y bootstrapping) manualmente usando num
 
 
 def manual_kfold_cv(
-    X, y, classifier_class, k_folds=10, random_state=42, **classifier_kwargs
+    X,
+    y,
+    classifier_class,
+    k_folds=Keys.CV_FOLDS,
+    random_state=Keys.RANDOM_STATE,
+    **classifier_kwargs,
 ):
     """
     Implementación de k-fold cross-validation usando numpy.
@@ -292,7 +368,7 @@ def manual_kfold_cv(
         # Hacer predicciones
         y_pred = classifier.predict(X_test)
 
-        # Calcular métricas para este fold
+        # Métricas para este fold
         fold_accuracy = accuracy_score(y_test, y_pred)
         fold_precision = precision_score(y_test, y_pred, average="macro")
         fold_recall = recall_score(y_test, y_pred, average="macro")
@@ -512,10 +588,10 @@ def plot_normalized_distributions(X, y, feature_names, class_names, config):
     - Valores positivos = por encima de la media general
     - Esto NO significa valores "negativos" literales, solo posición relativa
     """
-    fig, axes = plt.subplots(2, 2, figsize=config["figure_size_large"])
+    fig, axes = plt.subplots(2, 2, figsize=config[Keys.FIGURE_SIZE_LARGE])
     fig.suptitle("Distribución de Características Normalizadas por Clase", fontsize=16)
 
-    colors = config["class_colors"][: len(class_names)]
+    colors = config[Keys.CLASS_COLORS][: len(class_names)]
 
     for i, feature in enumerate(feature_names):
         ax = axes[i // 2, i % 2]
@@ -525,8 +601,8 @@ def plot_normalized_distributions(X, y, feature_names, class_names, config):
             label = class_name.split("-")[1] if "Iris-" in class_name else class_name
             ax.hist(
                 class_data,
-                alpha=config["alpha_transparency"],
-                bins=config["histogram_bins"],
+                alpha=config[Keys.ALPHA_TRANSPARENCY],
+                bins=config[Keys.HISTOGRAM_BINS],
                 color=colors[j],
                 label=label,
             )
@@ -535,7 +611,7 @@ def plot_normalized_distributions(X, y, feature_names, class_names, config):
         ax.set_xlabel("Valor Normalizado (μ=0, σ=1)")
         ax.set_ylabel("Frecuencia")
         ax.legend()
-        ax.grid(True, alpha=config["grid_alpha"])
+        ax.grid(True, alpha=config[Keys.GRID_ALPHA])
         ax.axvline(x=0, color="black", linestyle="--", alpha=0.5, label="Media=0")
 
     plt.tight_layout()
@@ -544,7 +620,7 @@ def plot_normalized_distributions(X, y, feature_names, class_names, config):
     fig.text(
         0.5,
         0.02,
-        "💡 Normalización: Valores negativos = por debajo de la media general, positivos = por encima",
+        "💡 Normalización: (-) = debajo de la media general | (+) = por encima",
         ha="center",
         fontsize=10,
         style="italic",
